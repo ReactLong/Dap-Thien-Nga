@@ -1,6 +1,6 @@
 * {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 32px;
+  font-size: 20px;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -14,8 +14,7 @@
 }
 
 body {
-  padding: 8px;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 h1 {
@@ -28,4 +27,63 @@ video {
 
 #root {
   padding-bottom: 40px;
+  width: 100vw; 
+  height: 100vh;
+}
+
+.setting-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateX(100vw);
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.setting-background.active {
+  transform: translateX(0);
+
+}
+
+.setting-form {
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #555;
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
+  padding: 4px;
+}
+
+.swan-table {
+  margin-top: 40px;
+}
+
+.feature-btn {
+  font-size: 32px;
+
+}
+
+.feature-btn:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.history-btn {
+
+}
+
+.setting-btn {
+
 }

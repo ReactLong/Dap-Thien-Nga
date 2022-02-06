@@ -4,12 +4,14 @@ function Swan({ id, handleSetTotal }) {
   const [count, setCount] = useState(Number.parseInt(config.minutes) * 10)
   const [isActive, setActive] = useState(false)
   const timer = useRef()
+
   const successRef = React.useRef()
   const overRef = React.useRef()
+  const almostDoneRef = React.useRef()
 
   // when input minutes change
   useEffect(() => {
-    handleStop()
+    if (!isActive) handleStop()
   }, [config.minutes])
 
   // when unmount
@@ -23,9 +25,10 @@ function Swan({ id, handleSetTotal }) {
 
   // countdown to 0 and stop
   useEffect(() => {
-    if (count <= 0) {
-      handleStop()
+    if (count == 30) {
+      if(config.almostDoneSound) almostDoneRef.current.play()
     }
+    else if (count <= 0) handleStop()
   }, [count])
 
   const handleStart = () => {
@@ -33,27 +36,37 @@ function Swan({ id, handleSetTotal }) {
       setActive(true)
       timer.current = setInterval(() => setCount(preCount => preCount - 1), 100)
     }
-    if(config.startSound) successRef.current.play()
+    if (config.startSound) successRef.current.play()
   }
 
   const handleStop = () => {
+    successRef.current.pause()
+    almostDoneRef.current.pause()
     if (isActive) {
       handleSetTotal()
-      if(config.stopSound) overRef.current.play()
+      if (config.stopSound) overRef.current.play()
     }
-    setActive(false)
-    setCount(Number.parseInt(config.minutes) * 10)
-    clearInterval(timer.current)
+    resetSwan()
+  }
+
+  // reset swan
+  const resetSwan = () => {
+     setActive(false)
+     setCount(Number.parseInt(config.minutes) * 10)
+     clearInterval(timer.current)
   }
 
   return (
-    <tr className={isActive && "table-active"}>
-      <th scope="row">{id}</th>
-      <td colspan="2">{date.format(new Date(count * 100), 'mm:ss:S')}</td>
-      <td><button type="button" className="btn btn-primary btn-sm" onClick={handleStart}>Start</button></td>
-      <td><button type="button" className="btn btn-danger btn-sm" onClick={handleStop}>Stop</button></td>
+    <React.Fragment>
+      <tr className={isActive? "table-active": ""}>
+        <th scope="row">{id}</th>
+        <td colSpan="2">{date.format(new Date(count * 100), 'mm:ss:S')}</td>
+        <td><button type="button" className="btn btn-primary btn-sm" onClick={handleStart}>Start</button></td>
+        <td><button type="button" className="btn btn-danger btn-sm" onClick={handleStop}>Stop</button></td>
+      </tr>
       <video ref={successRef} className="gameSuccess" src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-dung-chinh-xac-www_tiengdong_com.mp3"></video>
       <video ref={overRef} className="gameOver" src="https://tiengdong.com/wp-content/uploads/Tieng-sung-ban-1-phat-www_tiengdong_com.mp3"></video>
-    </tr>
+      <video ref={almostDoneRef} className="almostDone" src="https://tiengdong.com/wp-content/uploads/Am-thanh-dem-nguoc-3-giay-www_tiengdong_com.mp3"></video>
+    </React.Fragment>
   )
 }
