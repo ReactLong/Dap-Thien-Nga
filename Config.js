@@ -6,11 +6,18 @@ const defaultStopSound = true
 const defaultAlmostDoneSound = true
 
 function Config({ children }) {
-  const [swans, setSwans] = useState(defaultSwans)
-  const [minutes, setMinutes] = useState(defaultMinutes)
-  const [startSound, setStartSound] = useState(defaultStartSound)
-  const [stopSound, setStopSound] = useState(defaultStopSound)
-  const [almostDoneSound, setAlmostDoneSound] = useState(defaultAlmostDoneSound)
+  const localConfig = useRef(localStorage.getItem('config') ? JSON.parse(localStorage.getItem('config')) : {
+    swans: defaultSwans,
+    minutes: defaultMinutes,
+    startSound: defaultStartSound,
+    stopSound: defaultStopSound,
+    almostDoneSound: defaultAlmostDoneSound,
+  })
+  const [swans, setSwans] = useState(localConfig.current.swans)
+  const [minutes, setMinutes] = useState(localConfig.current.minutes)
+  const [startSound, setStartSound] = useState(localConfig.current.startSound)
+  const [stopSound, setStopSound] = useState(localConfig.current.stopSound)
+  const [almostDoneSound, setAlmostDoneSound] = useState(localConfig.current.almostDoneSound)
 
   const handleSetSwans = (swans) => {
     setSwans(Number.parseInt(swans) || 0)
@@ -27,6 +34,23 @@ function Config({ children }) {
     setAlmostDoneSound(defaultAlmostDoneSound)
   }
   console.log(swans, minutes, startSound, stopSound, almostDoneSound)
+
+  // save config to local
+  useEffect(() => {
+    console.log(localConfig.current)
+    localConfig.current = {
+      swans: swans,
+      minutes: minutes,
+      startSound: startSound,
+      stopSound: stopSound,
+      almostDoneSound: almostDoneSound
+    }
+    return () => {
+      localStorage.setItem('config', JSON.stringify(localConfig.current))
+      console.log(localConfig.current)
+    }
+  }, [swans, minutes, startSound, stopSound, almostDoneSound])
+
   return (
     <ConfigContext.Provider value={{
       swans,

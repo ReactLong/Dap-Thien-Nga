@@ -1,14 +1,20 @@
 const rootElement = document.getElementById('root')
+function Index() {
+  const [mount, setMount] = useState(false)
+
+  return (
+    <React.Fragment>
+    <button onClick={() => setMount(preMount => !preMount)} style={{position: 'fixed', bottom: '0'}}>Toggle</button>
+    {mount &&
+      <Config>
+      <History>
+        <App />
+      </History>
+    </Config>}
+    </React.Fragment>
+  )
+}
 ReactDOM.render(
-  <Config>
-    <History>
-      <App />
-    </History>
-  </Config>,
+  <Index></Index>,
   rootElement
 )
-
-let settingBackground = document.querySelector('.setting-background')
-let settingForm = document.querySelector('.setting-form')
-let settingBtn = document.querySelector('.setting-btn')
-let historyBtn = document.querySelector('.history-btn')

@@ -32,20 +32,20 @@ const Setting = React.forwardRef(({ disable }, ref) =>{
         <div className="row mb-3">
           <div className="col-sm-10 offset-sm-2">
             <div className="form-check">
-              <label className="form-check-label" htmlFor="stopping-sound">
-                Stopping sound
+              <label className="form-check-label" htmlFor="almost-done-sound">
+                Almost done sound
               </label>
-              <input className="form-check-input" type="checkbox" id="stopping-sound" checked={config.stopSound} onChange={() => config.setStopSound(preState => !preState)} />
+              <input className="form-check-input" type="checkbox" id="almost-done-sound" checked={config.almostDoneSound} onChange={() => config.setAlmostDoneSound(preState => !preState)} />
             </div>
           </div>
         </div>
         <div className="row mb-3">
           <div className="col-sm-10 offset-sm-2">
             <div className="form-check">
-              <label className="form-check-label" htmlFor="almost-done-sound">
-                Almost done sound
+              <label className="form-check-label" htmlFor="stopping-sound">
+                Stopping sound
               </label>
-              <input className="form-check-input" type="checkbox" id="almost-done-sound" checked={config.almostDoneSound} onChange={() => config.setAlmostDoneSound(preState => !preState)} />
+              <input className="form-check-input" type="checkbox" id="stopping-sound" checked={config.stopSound} onChange={() => config.setStopSound(preState => !preState)} />
             </div>
           </div>
         </div>

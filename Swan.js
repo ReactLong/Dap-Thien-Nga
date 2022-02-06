@@ -1,9 +1,11 @@
 
 function Swan({ id, handleSetTotal }) {
   const config = useContext(ConfigContext)
+  const history = useContext(HistoryContext)
   const [count, setCount] = useState(Number.parseInt(config.minutes) * 10)
   const [isActive, setActive] = useState(false)
   const timer = useRef()
+  const begin = useRef()
 
   const successRef = React.useRef()
   const overRef = React.useRef()
@@ -35,16 +37,27 @@ function Swan({ id, handleSetTotal }) {
     if (!isActive) {
       setActive(true)
       timer.current = setInterval(() => setCount(preCount => preCount - 1), 100)
+
+      // set log
+      begin.current = new Date()
     }
     if (config.startSound) successRef.current.play()
   }
 
   const handleStop = () => {
-    successRef.current.pause()
-    almostDoneRef.current.pause()
     if (isActive) {
       handleSetTotal()
+      successRef.current.pause()
+      almostDoneRef.current.pause()
       if (config.stopSound) overRef.current.play()
+      
+      // save log
+      history.handleSetHistory({
+        id,
+        begin: date.format(begin.current, 'HH:mm:ss ddd DD/MM/YYYY'),
+        end: date.format(new Date(), 'HH:mm:ss ddd DD/MM/YYYY'),
+        total: date.subtract(new Date(), begin.current).toMinutes()
+      })
     }
     resetSwan()
   }
