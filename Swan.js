@@ -1,8 +1,8 @@
 
-function Swan({ id, handleSetTotal }) {
+function Swan({ id }) {
   const config = useContext(ConfigContext)
-  const history = useContext(HistoryContext)
-  const [count, setCount] = useState(Number.parseInt(config.minutes) * 10)
+  const localHistory = useContext(HistoryContext)
+  const [count, setCount] = useState(Number.parseInt(config.minutes) *60 * 10)
   const [isActive, setActive] = useState(false)
   const timer = useRef()
   const begin = useRef()
@@ -20,7 +20,6 @@ function Swan({ id, handleSetTotal }) {
   useEffect(() => {
     return () => {
       console.log('unmounted ' + id)
-      handleSetTotal()
       handleStop()
     }
   }, [])
@@ -46,17 +45,16 @@ function Swan({ id, handleSetTotal }) {
 
   const handleStop = () => {
     if (isActive) {
-      handleSetTotal()
       successRef.current.pause()
       almostDoneRef.current.pause()
       if (config.stopSound) overRef.current.play()
       
       // save log
-      history.handleSetHistory({
+      localHistory.handleSetHistory({
         id,
         begin: date.format(begin.current, 'HH:mm:ss ddd DD/MM/YYYY'),
         end: date.format(new Date(), 'HH:mm:ss ddd DD/MM/YYYY'),
-        total: date.subtract(new Date(), begin.current).toMinutes()
+        total: date.subtract(new Date(), begin.current).toMinutes().toPrecision(2)
       })
     }
     resetSwan()
@@ -65,7 +63,7 @@ function Swan({ id, handleSetTotal }) {
   // reset swan
   const resetSwan = () => {
      setActive(false)
-     setCount(Number.parseInt(config.minutes) * 10)
+     setCount(Number.parseInt(config.minutes)*60 * 10)
      clearInterval(timer.current)
   }
 
@@ -74,7 +72,7 @@ function Swan({ id, handleSetTotal }) {
       <tr className={isActive? "table-active": ""}>
         <th scope="row">{id}</th>
         <td colSpan="2">{date.format(new Date(count * 100), 'mm:ss:S')}</td>
-        <td><button type="button" className="btn btn-primary btn-sm" onClick={handleStart}>Start</button></td>
+        <td><button type="button" className="btn btn-success btn-sm" onClick={handleStart}>Start</button></td>
         <td><button type="button" className="btn btn-danger btn-sm" onClick={handleStop}>Stop</button></td>
       </tr>
       <video ref={successRef} className="gameSuccess" src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-dung-chinh-xac-www_tiengdong_com.mp3"></video>

@@ -33,11 +33,9 @@ function Config({ children }) {
     setStopSound(defaultStopSound)
     setAlmostDoneSound(defaultAlmostDoneSound)
   }
-  console.log(swans, minutes, startSound, stopSound, almostDoneSound)
 
   // save config to local
   useEffect(() => {
-    console.log(localConfig.current)
     localConfig.current = {
       swans: swans,
       minutes: minutes,
@@ -45,9 +43,9 @@ function Config({ children }) {
       stopSound: stopSound,
       almostDoneSound: almostDoneSound
     }
+    localStorage.setItem('config', JSON.stringify(localConfig.current))
     return () => {
       localStorage.setItem('config', JSON.stringify(localConfig.current))
-      console.log(localConfig.current)
     }
   }, [swans, minutes, startSound, stopSound, almostDoneSound])
 

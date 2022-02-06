@@ -1,29 +1,30 @@
 
 function App() {
-  const [total, setTotal] = useState(0)
   const config = useContext(ConfigContext)
+  const localHistory = useContext(HistoryContext)
   const [isSetting, setIsSetting] = useState(false)
+  const [isHistory, setIsHistory] = useState(false)
 
-  console.log('re-render-app')
   React.useEffect(() => {
 
   }, [])
 
-  const handleSetTotal = () => {
-    setTotal(preTotal => preTotal + 1)
-  }
-
   // interface
   const settingRef = useRef()
   const settingBtnRef = useRef()
-  const handleSettingBtnClick =() => {
+  const historyRef = useRef()
+  const historyBtnRef = useRef()
+  const handleSettingBtnClick = () => {
     settingRef.current.classList.add('active')
+  }
+  const handleHistoryBtnClick = () => {
+    setIsHistory(preHis => !preHis)
   }
  
   return (
     <React.Fragment>
       <header>
-        <i className="fas fa-history feature-btn history-btn"></i>
+        <i ref={historyBtnRef} onClick={handleHistoryBtnClick} className="fas fa-history feature-btn history-btn"></i>
         Swan HaiGiap
         <i ref={settingBtnRef} onClick={handleSettingBtnClick} className="fas fa-cogs feature-btn setting-btn"></i>
       </header>
@@ -31,7 +32,7 @@ function App() {
         <table className="swan-table table table-hover table-sm">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col">Swan</th>
               <th scope="col" colSpan="2">Counter</th>
               <th scope="col">Start</th>
               <th scope="col">Stop</th>
@@ -39,12 +40,13 @@ function App() {
           </thead>
           <tbody>
             {[...Array(config.swans)].map((x, i) =>
-              <Swan key={i} id={i + 1} handleSetTotal={handleSetTotal} />)
+              <Swan key={i} id={i + 1} />)
             }
           </tbody>
         </table>
-        <h2 className="d-flex justify-content-center">Total: {total}</h2>
+        <h2 className="d-flex justify-content-center">Total: {localHistory.history.length}</h2>
         <Setting ref={settingRef}></Setting>
+        {isHistory && <Paging></Paging>}
       </div>
     </React.Fragment>
   )

@@ -8,12 +8,16 @@ function History({ children }) {
     setHistory(preHis => [...preHis, payload])
   }
 
+  const clearHistory = () => {
+    setHistory([])
+  }
+
   useEffect(() => {
     localStorage.setItem('history', JSON.stringify(history))
   }, [history])
 
   return (
-    <HistoryContext.Provider value={{ history, handleSetHistory }}>
+    <HistoryContext.Provider value={{ history, handleSetHistory, clearHistory}}>
       {children}
     </HistoryContext.Provider>
   )
