@@ -39,14 +39,22 @@ video {
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
-  transform: translateX(100vw);
   width: 100vw;
   height: 100vh;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
 }
 
 .popUp-background.active {
   transform: translateX(0);
+  opacity: 1;
+}
 
+.popUp-left {
+  transform: translateX(-100vw);
+}
+.popUp-right {
+  transform: translateX(100vw);
 }
 
 .popUp-content {
@@ -106,4 +114,8 @@ header {
 /* fix modal */
 .modal-backdrop {
   z-index: -1 !important;
+}
+
+.modal-dialog {
+  box-shadow: #555 40px 40px 80px 10px;
 }

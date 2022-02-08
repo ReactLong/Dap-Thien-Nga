@@ -46,8 +46,8 @@ function App() {
           </tbody>
         </table>
         <h2 className="d-flex justify-content-center">Total: {localHistory.history.length}</h2>
+        <PopUp ref={historyRef} popUpLeft><Paging ></Paging></PopUp>
         <PopUp ref={settingRef}><Setting></Setting></PopUp>
-        <PopUp ref={historyRef}><Paging ></Paging></PopUp>
       </div>
     </React.Fragment>
   )
