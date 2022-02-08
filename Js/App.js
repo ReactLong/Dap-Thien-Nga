@@ -18,16 +18,17 @@ function App() {
     settingRef.current.classList.add('active')
   }
   const handleHistoryBtnClick = () => {
-    setIsHistory(preHis => !preHis)
+    historyRef.current.classList.add('active')
   }
- 
+
   return (
     <React.Fragment>
       <header>
         <i ref={historyBtnRef} onClick={handleHistoryBtnClick} className="fas fa-history feature-btn history-btn"></i>
-        Swan HaiGiap
+        <span><i class="fas fa-place-of-worship"></i> HaiGiap</span>
         <i ref={settingBtnRef} onClick={handleSettingBtnClick} className="fas fa-cogs feature-btn setting-btn"></i>
       </header>
+
       <div className="container">
         <table className="swan-table table table-hover table-sm">
           <thead>
@@ -45,8 +46,8 @@ function App() {
           </tbody>
         </table>
         <h2 className="d-flex justify-content-center">Total: {localHistory.history.length}</h2>
-        <Setting ref={settingRef}></Setting>
-        {isHistory && <Paging></Paging>}
+        <PopUp ref={settingRef}><Setting></Setting></PopUp>
+        <PopUp ref={historyRef}><Paging ></Paging></PopUp>
       </div>
     </React.Fragment>
   )
