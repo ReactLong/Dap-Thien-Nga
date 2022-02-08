@@ -14,7 +14,7 @@
 }
 
 body {
-  /* min-height: 100vh; */
+  min-height: 100%;
 }
 
 h1 {
@@ -101,4 +101,9 @@ header {
 
 .table-active {
   border-bottom: rgba(25, 135, 84, 0.5) 1px solid;
+}
+
+/* fix modal */
+.modal-backdrop {
+  z-index: -1 !important;
 }
