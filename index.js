@@ -4,13 +4,16 @@ function Index() {
 
   return (
     <React.Fragment>
-    {/* <button onClick={() => setMount(preMount => !preMount)} style={{position: 'fixed', bottom: '0'}}>Toggle</button> */}
-    {mount &&
-      <Config>
-      <History>
-        <App />
-      </History>
-    </Config>}
+      {/* <button onClick={() => setMount(preMount => !preMount)} style={{position: 'fixed', bottom: '0'}}>Toggle</button> */}
+      {mount &&
+        <Logger>
+          <Config>
+            <History>
+              <App />
+            </History>
+          </Config>
+        </Logger>
+      }
     </React.Fragment>
   )
 }

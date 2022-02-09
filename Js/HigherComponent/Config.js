@@ -5,7 +5,10 @@ const defaultStartSound = true
 const defaultStopSound = true
 const defaultAlmostDoneSound = true
 
-function Config({ children }) {
+const Config = React.memo(({ children }) => {
+  const logger = useContext(LoggerContext)
+  logger.log('re-render Config')
+
   const localConfig = useRef(localStorage.getItem('config') ? JSON.parse(localStorage.getItem('config')) : {
     swans: defaultSwans,
     minutes: defaultMinutes,
@@ -66,5 +69,5 @@ function Config({ children }) {
       {children}
     </ConfigContext.Provider>
   )
-}
+})
 

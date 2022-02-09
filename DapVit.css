@@ -43,7 +43,6 @@ video {
   height: 100vh;
   opacity: 0;
   transition: all 0.2s ease-in-out;
-  transition: opacity 0.1s linear;
 }
 
 .popUp-background.active {
@@ -119,4 +118,17 @@ header {
 
 .modal-dialog {
   box-shadow: #555 40px 40px 80px 10px;
+}
+
+
+h1 {
+  color: #e74c3c;
+  text-align: center;
+  font-weight: 700;
+  font-family: 'Dancing Script', cursive;
+}
+
+header > span > i {
+  color: #f1c40f;
+
 }

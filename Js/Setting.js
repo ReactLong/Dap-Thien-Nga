@@ -1,15 +1,17 @@
 
-const Setting = React.forwardRef(({ disable }, ref) => {
+const Setting = React.memo(() => {
   const config = useContext(ConfigContext)
   const localHistory = useContext(HistoryContext)
   const closePopUp = useContext(ClosePopUpContext)
   
+  const logger = useContext(LoggerContext)
+  logger.log('re-render Setting')
 
   return (
     <React.Fragment>
       {/* main form */}
       <form className="container" onClick={(e) => e.stopPropagation()}>
-        <h2 className="mx-auto">Settings</h2>
+        <h1 className="mx-auto">Settings</h1>
         <div className="row mb-3">
           <label htmlFor="inputSwans" className="col-md-3 col-form-label">Swans</label>
           <div className="col-md-9">
@@ -66,7 +68,7 @@ const Setting = React.forwardRef(({ disable }, ref) => {
       </form>
 
       {/* modal */}
-      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

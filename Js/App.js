@@ -2,8 +2,11 @@
 function App() {
   const config = useContext(ConfigContext)
   const localHistory = useContext(HistoryContext)
+  const logger = useContext(LoggerContext)
   const [isSetting, setIsSetting] = useState(false)
   const [isHistory, setIsHistory] = useState(false)
+
+  logger.warn("re-render App")
 
   React.useEffect(() => {
 
@@ -25,7 +28,7 @@ function App() {
     <React.Fragment>
       <header>
         <i ref={historyBtnRef} onClick={handleHistoryBtnClick} className="fas fa-history feature-btn history-btn"></i>
-        <span><i class="fas fa-place-of-worship"></i> HaiGiap</span>
+        <span><i className="fas fa-place-of-worship"></i> HaiGiap</span>
         <i ref={settingBtnRef} onClick={handleSettingBtnClick} className="fas fa-cogs feature-btn setting-btn"></i>
       </header>
 
@@ -45,7 +48,8 @@ function App() {
             }
           </tbody>
         </table>
-        <h2 className="d-flex justify-content-center">Total: {localHistory.history.length}</h2>
+        <h1 className="d-flex justify-content-center">Total: {localHistory.history.length}</h1>
+        <TestMemo></TestMemo>
         <PopUp ref={historyRef} popUpLeft><Paging ></Paging></PopUp>
         <PopUp ref={settingRef}><Setting></Setting></PopUp>
       </div>

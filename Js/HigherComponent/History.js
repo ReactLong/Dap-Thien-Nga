@@ -1,6 +1,9 @@
 const HistoryContext = createContext()
 
-function History({ children }) {
+const History = React.memo(({ children }) => {
+  const logger = useContext(LoggerContext)
+  logger.log('re-render History')
+ 
   const [history, setHistory] = useState(
     localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : []
   )
@@ -21,4 +24,4 @@ function History({ children }) {
       {children}
     </HistoryContext.Provider>
   )
-}
+})

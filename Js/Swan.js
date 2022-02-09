@@ -1,5 +1,5 @@
 
-function Swan({ id }) {
+const Swan = React.memo(({ id }) => {
   const config = useContext(ConfigContext)
   const localHistory = useContext(HistoryContext)
   const [count, setCount] = useState(Number.parseInt(config.minutes) *60 * 10)
@@ -11,6 +11,9 @@ function Swan({ id }) {
   const overRef = React.useRef()
   const almostDoneRef = React.useRef()
 
+  const logger = useContext(LoggerContext)
+  logger.log('re-render Swan', id)
+
   // when input minutes change
   useEffect(() => {
     if (!isActive) handleStop()
@@ -19,7 +22,7 @@ function Swan({ id }) {
   // when unmount
   useEffect(() => {
     return () => {
-      console.log('unmounted ' + id)
+      logger.log('unmounted', id)
       handleStop()
     }
   }, [])
@@ -54,6 +57,7 @@ function Swan({ id }) {
         id,
         begin: date.format(begin.current, 'HH:mm:ss ddd DD/MM/YYYY'),
         end: date.format(new Date(), 'HH:mm:ss ddd DD/MM/YYYY'),
+        minutes: config.minutes,
         total: date.subtract(new Date(), begin.current).toMinutes().toPrecision(2)
       })
     }
@@ -80,4 +84,4 @@ function Swan({ id }) {
       <video ref={almostDoneRef} className="almostDone" src="https://tiengdong.com/wp-content/uploads/Am-thanh-dem-nguoc-3-giay-www_tiengdong_com.mp3"></video>
     </React.Fragment>
   )
-}
+})
