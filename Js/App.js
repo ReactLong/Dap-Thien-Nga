@@ -28,7 +28,7 @@ function App() {
     <React.Fragment>
       <header>
         <i ref={historyBtnRef} onClick={handleHistoryBtnClick} className="fas fa-history feature-btn history-btn"></i>
-        <span><i className="fas fa-place-of-worship"></i> HaiGiap</span>
+        <span>Swan <i className="fas fa-place-of-worship"></i> HaiGiap</span>
         <i ref={settingBtnRef} onClick={handleSettingBtnClick} className="fas fa-cogs feature-btn setting-btn"></i>
       </header>
 
