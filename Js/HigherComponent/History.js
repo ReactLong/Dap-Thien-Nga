@@ -8,7 +8,7 @@ const History = React.memo(({ children }) => {
     localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : []
   )
   const handleSetHistory = (payload) => {
-    setHistory(preHis => [...preHis, payload])
+    setHistory(preHis => [payload, ...preHis])
   }
 
   const clearHistory = () => {
